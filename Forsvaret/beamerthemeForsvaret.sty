@@ -1,0 +1,149 @@
+% Copyright 2010 by Jens Stavnstrup <stavnstrup@mil.dk>
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+% See the file doc/licenses/LICENSE for more details.
+
+
+\ProvidesPackage{beamerthemeForsvaret}[2010/09/25 18:44:00 v 0.1 stavnstrup]
+
+
+\newdimen\beamer@sidebarwidth
+\newdimen\beamer@bodywidth
+\usebeamerfont{frametitle}
+\beamer@sidebarwidth=2.5\baselineskip
+\beamer@bodywidth=\paperwidth
+\addtolength{\beamer@bodywidth}{-\beamer@sidebarwidth}
+
+\mode<presentation>
+
+\definecolor{forsvarbackground}{RGB}{234,234,234}
+\definecolor{forsvarsidebar}{RGB}{221,221,221}
+\definecolor{forsvartopbar}{RGB}{255,0,0}
+
+\useoutertheme[left,width=\beamer@sidebarwidth,hideallsubsections]{sidebar}
+
+\ifdim\beamer@headheight>0pt
+
+  \defbeamertemplate*{headline}{forsvaret theme}
+  {%
+    \begin{beamercolorbox}[wd=\paperwidth]{frametitle}
+      \ifx\beamer@sidebarside\beamer@lefttext%
+      \else%
+        \hfill%
+      \fi%
+      \ifdim\beamer@sidebarwidth>0pt%  
+        \usebeamercolor[bg]{logo}%
+        \vrule width\beamer@sidebarwidth height \beamer@headheight%
+        \hskip-\beamer@sidebarwidth%
+        \hbox to \beamer@sidebarwidth{\hss\vbox to
+          \beamer@headheight{\vss\hbox{\color{fg}\includegraphics[width=0.45in]{graphics/faelles-maerke.pdf}}\vss}\hss}%
+      \hfill%
+      \hbox to 0.40in{\hss\vbox to
+         1.5cm{\vss\hbox{\color{fg}\includegraphics[width=0.35in]{graphics/fmt-logo.pdf}}\vss}\hss}%
+      \else%
+        \vrule width0pt height \beamer@headheight%  
+      \fi%
+    \end{beamercolorbox}
+  }
+\fi
+
+
+
+
+%\setbeamercolor*{author in head/foot}{parent=palette tertiary}
+%\setbeamercolor*{title in head/foot}{parent=palette secondary}
+%\setbeamercolor*{date in head/foot}{parent=palette primary}
+
+%\setbeamercolor*{section in head/foot}{parent=palette tertiary}
+%\setbeamercolor*{subsection in head/foot}{parent=palette primary}
+
+
+
+
+\defbeamertemplate*{footline}{forsvaret theme}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\beamer@sidebarwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortinstitute
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=\beamer@bodywidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+
+
+\ifdim\beamer@sidebarwidth>0pt
+
+  % Only show org/dept. and slidenumbers in left sidebar
+
+  \defbeamertemplate*{sidebar left}{forsvaret theme}{
+    \insertverticalnavigation{\beamer@sidebarwidth}%
+    \vfill
+    \ifx\beamer@sidebarside\beamer@lefttext%
+    \else%
+      \usebeamercolor{normal text}%
+      \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+      \vskip2pt%
+    \fi%
+    \vfill
+    \vskip5pt%
+  }
+
+  % -------------------------------------------------------------------------------------
+  % Create horizontal bars (left in sidebar box using sidebar color and red in right box)
+  % -------------------------------------------------------------------------------------
+
+
+  \addtobeamertemplate{headline}
+  {}
+  {\leavevmode%
+    \setbeamercolor{lbar}{bg=forsvarsidebar}%
+    \begin{beamercolorbox}[wd=\beamer@sidebarwidth,ht=1.5mm]{lbar}%
+    \end{beamercolorbox}%
+    \setbeamercolor{rbar}{bg=red}%
+    \begin{beamercolorbox}[wd=\beamer@bodywidth,ht=1.5mm]{rbar}%
+    \end{beamercolorbox}
+  }
+
+  % Define a right sidebar (used only for FMT logo
+%  \setbeamersize{sidebar width right=0.38in}
+%  \setbeamertemplate{sidebar canvas right}{}
+   
+\fi
+
+\useinnertheme[shadow=true]{rounded}
+
+\usenavigationsymbolstemplate{}
+
+
+\usecolortheme{beaver}
+
+
+
+\setbeamercolor{background canvas}{bg=forsvarbackground}
+\setbeamercolor{sidebar}{bg=forsvarsidebar,fg=black}
+\setbeamercolor{frametitle}{bg=white,fg=black}
+\setbeamercolor{logo}{bg=white}
+
+
+% Highlightes section in navigationbar
+\setbeamercolor*{palette sidebar secondary}{fg=black}
+
+% Normal section in navigationbar
+\setbeamercolor*{palette sidebar quaternary}{fg=white}
+
+
+\setbeamercolor*{author in head/foot}{fg=black,bg=forsvarsidebar}
+%\setbeamercolor*{title in head/foot}{parent=palette secondary}
+\setbeamercolor*{date in head/foot}{fg=black}
+
+
+\mode
+<all>
